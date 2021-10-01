@@ -140,11 +140,14 @@ def count_steps_1(timestamps, x_arr, y_arr, z_arr):
                 last_step_time = time
 
         # Record the threshold every timestep for threshold printing in visualize_data()
-        thresholds_history.append(threshold)
+        if (head_up == 1):
+            thresholds_history.append(threshold)
+        elif (head_up == 0):
+            thresholds_history.append(-threshold)
 
     # Print result
     print("     Identified steps: " + str(steps_count) + ", at time: " + str(rv))
-    return rv
+    return rv, thresholds_history
 
 
 # Function to count steps (Solution N°2: Dynamic threshold).
@@ -261,7 +264,7 @@ def main():
       return
 
     # Count the steps based on array of measurements from accelerometer
-    st, thresholds_history = count_steps_2(timestamps, x_array, y_array, z_array)
+    st, thresholds_history = count_steps_1(timestamps, x_array, y_array, z_array)
 
     # Print the result
     print("This data contains " + str(len(st)) + " steps according to current algorithm")
